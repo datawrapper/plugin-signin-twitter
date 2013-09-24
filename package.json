@@ -1,0 +1,10 @@
+{
+    "name": "login-twitter",
+    "description": "A plugin for signing in on Datawrapper using a Twitter account",
+    "version": "0.1",
+    "author": "Gregor Aisch",
+    "repository": {
+        "type": "git",
+        "url": "ssh://git@bitbucket.org/datawrapper/dw-plugin-signin-twitter.git"
+    }
+}
