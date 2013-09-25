@@ -77,7 +77,12 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
 
                 // everything looks good, request access token
                 // successful response returns oauth_token, oauth_token_secret, user_id, and screen_name
-                $connection = new TwitterOAuth($config['consumer_key'], $config['consumer_secret'], $_SESSION['token'] , $_SESSION['token_secret']);
+                $connection = new TwitterOAuth(
+                    $config['consumer_key'],
+                    $config['consumer_secret'],
+                    $_SESSION['signin/twitter/token'],
+                    $_SESSION['signin/twitter/token_secret']
+                );
                 $access_token = $connection->getAccessToken($req->params('oauth_verifier'));
 
                 if ($connection->http_code == '200') {
