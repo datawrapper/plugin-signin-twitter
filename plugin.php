@@ -15,7 +15,8 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
     }
 
     public function checkConfig() {
-        return !empty($config['consumer-key']) && !empty($config['consumer-secret']);
+        $config = $this->getConfig();
+        return !empty($config['consumer_key']) && !empty($config['consumer_secret']);
     }
 
     /*
@@ -31,7 +32,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
             $oauth_token = $_SESSION['signin/twitter/request_vars']['oauth_token'];
             $oauth_token_secret = $_SESSION['signin/twitter/request_vars']['oauth_token_secret'];
 
-            $connection = new TwitterOAuth($config['consumer-key'], $config['consumer-secret'], $oauth_token, $oauth_token_secret);
+            $connection = new TwitterOAuth($config['consumer_key'], $config['consumer_secret'], $oauth_token, $oauth_token_secret);
 
             // check if we already have this Twitter user in our database
             $user = UserQuery::create()->findOneByOAuthSignIn('twitter::' . $twitterid);
@@ -76,7 +77,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
 
                 // everything looks good, request access token
                 // successful response returns oauth_token, oauth_token_secret, user_id, and screen_name
-                $connection = new TwitterOAuth($config['consumer-key'], $config['consumer-secret'], $_SESSION['token'] , $_SESSION['token_secret']);
+                $connection = new TwitterOAuth($config['consumer_key'], $config['consumer_secret'], $_SESSION['token'] , $_SESSION['token_secret']);
                 $access_token = $connection->getAccessToken($req->post('oauth_verifier'));
 
                 if ($connection->http_code == '200') {
@@ -100,12 +101,12 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                 }
 
                 // fresh authentication
-                $connection = new TwitterOAuth($config['consumer-key'], $config['consumer-secret']);
-                $request_token = $connection->getRequestToken('http://' . DW_DOMAIN . '/signin/twitter');
+                $connection = new TwitterOAuth($config['consumer_key'], $config['consumer_secret']);
+                $request_token = $connection->getRequestToken('http://' . $GLOBALS['dw_config']['domain'] . '/signin/twitter');
 
                 //received token info from twitter
-                $_SESSION['signin/twitter/token']          = $request_token['oauth_token'];
-                $_SESSION['signin/twitter/token_secret']   = $request_token['oauth_token_secret'];
+                $_SESSION['signin/twitter/token'] = $request_token['oauth_token'];
+                $_SESSION['signin/twitter/token_secret'] = $request_token['oauth_token_secret'];
 
                 // any value other than 200 is failure, so continue only if http code is 200
                 if($connection->http_code == '200') {
