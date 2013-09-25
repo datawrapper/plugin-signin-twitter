@@ -24,7 +24,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
      */
     private function checkLogin() {
         if (!$this->checkConfig()) return;
-        $config = $plugin->getConfig();
+        $config = $this->getConfig();
 
         if (isset($_SESSION['signin/twitter/status']) && $_SESSION['signin/twitter/status']=='verified') {
 
