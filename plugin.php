@@ -88,7 +88,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                     // unset no longer needed request tokens
                     unset($_SESSION['signin/twitter/token']);
                     unset($_SESSION['signin/twitter/token_secret']);
-                    header('Location: ./index.php');
+                    $app->redirect('/');
                 } else {
                     die("error, try again later!");
                 }
@@ -112,7 +112,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                 if($connection->http_code == '200') {
                     //redirect user to twitter
                     $twitter_url = $connection->getAuthorizeURL($request_token['oauth_token']);
-                    header('Location: ' . $twitter_url);
+                    $app->redirect($twitter_url);
                 } else {
                     die("error connecting to twitter! try again later!");
                 }
