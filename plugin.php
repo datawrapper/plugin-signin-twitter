@@ -34,13 +34,15 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
             $connection = new TwitterOAuth($config['consumer-key'], $config['consumer-secret'], $oauth_token, $oauth_token_secret);
 
             // check if we already have this Twitter user in our database
-            $user = UserQuery::create()->findOneByEmail($twitterid);
+            $user = UserQuery::create()->findOneByOAuthSignIn('twitter::' . $twitterid);
             if (!$user) {
                 // if not we create a new one
                 $user = new User();
                 $user->setCreatedAt(time());
+                $user->setOAuthSignIn('twitter::' . $twitterid);
                 // we use the email field to store the twitterid
-                $user->setEmail($twitterid);
+                $user->setEmail('');
+                $user->setRole(UserPeer::ROLE_EDITOR); // activate user rigth away
                 $user->setName($screenname);
                 $user->setSmProfile($twitterid);
                 $user->save();
