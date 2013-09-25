@@ -3,11 +3,13 @@
 class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
 
     public function init() {
-        $user = UserQuery::create()->findOneById(23);
-        DatawrapperSession::login($user);
+        /*$user = UserQuery::create()->findOneById(23);
+        DatawrapperSession::login($user);*/
 
         // register plugin controller under /gallery/
         DatawrapperHooks::register(DatawrapperHooks::GET_PLUGIN_CONTROLLER, array($this, 'process'));
+
+        DatawrapperHooks::register(DatawrapperHooks::AFTER_LOGIN_FORM, array($this, 'showTwitterSignInButton'));
 
         $this->checkLogin();
     }
@@ -114,6 +116,11 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
             }
 
         });
+    }
+
+    public function showTwitterSignInButton() {
+        global $app;
+        $app->render('plugins/'.$this->getName().'/twitter-button.twig');
     }
 
     public function getRequiredLibraries() {
