@@ -46,7 +46,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                 $user->setEmail('');
                 $user->setRole(UserPeer::ROLE_EDITOR); // activate user rigth away
                 $user->setName($screenname);
-                $user->setSmProfile($twitterid);
+                $user->setSmProfile('https://twitter.com/'.$screenname);
                 $user->save();
             }
             DatawrapperSession::login($user);
