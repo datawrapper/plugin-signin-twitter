@@ -5,7 +5,7 @@
     "author": "Gregor Aisch",
     "repository": {
         "type": "git",
-        "url": "ssh://git@bitbucket.org/datawrapper/dw-plugin-signin-twitter.git"
+        "url": "ssh://git@bitbucket.org/datawrapper/plugin-signin-twitter.git"
     },
     "dependencies": {
         "core": "1.5.4"
