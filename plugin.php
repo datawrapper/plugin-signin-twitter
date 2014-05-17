@@ -49,7 +49,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                 $user->setSmProfile('https://twitter.com/'.$screenname);
                 $user->save();
             }
-            DatawrapperSession::login($user);
+            DatawrapperSession::login($user, true, true);
         }
     }
 
