@@ -8,6 +8,6 @@
         "url": "ssh://git@bitbucket.org/datawrapper/plugin-signin-twitter.git"
     },
     "dependencies": {
-        "core": "1.5.4"
+        "core": "1.7.6"
     }
 }
