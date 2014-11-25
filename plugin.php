@@ -67,14 +67,14 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                 return;
             }
 
-            if ($req->params('oauth_token') != null && $_SESSION['signin/twitter/token'] !== $req->params('oauth_token')) {
+            if (!isset($_SESSION['signin/twitter/token']) || $req->params('oauth_token') != null && $_SESSION['signin/twitter/token'] !== $req->params('oauth_token')) {
                 // if token is old, distroy any session and redirect user to index.php
                 session_destroy();
 
                 // sign-in user!
                 $app->redirect('/');
 
-            } elseif ($req->params('oauth_token') != null && $_SESSION['signin/twitter/token'] == $req->params('oauth_token')) {
+            } elseif ($req->params('oauth_token') != null && $_SESSION['signin/twitter/token'] === $req->params('oauth_token')) {
 
                 // everything looks good, request access token
                 // successful response returns oauth_token, oauth_token_secret, user_id, and screen_name
