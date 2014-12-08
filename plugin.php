@@ -9,7 +9,13 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
         // register plugin controller under /gallery/
         DatawrapperHooks::register(DatawrapperHooks::GET_PLUGIN_CONTROLLER, array($this, 'process'));
 
-        DatawrapperHooks::register(DatawrapperHooks::ALTERNATIVE_SIGNIN, array($this, 'showTwitterSignInButton'));
+        DatawrapperHooks::register(DatawrapperHooks::ALTERNATIVE_SIGNIN, function() {
+            return array(
+                'icon' => 'fa fa-twitter',
+                'label' => 'Twitter',
+                'url' => '/signin/twitter'
+            );
+        });
 
         $this->checkLogin();
     }
@@ -125,11 +131,6 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
             }
 
         });
-    }
-
-    public function showTwitterSignInButton() {
-        global $app;
-        $app->render('plugins/'.$this->getName().'/twitter-button.twig');
     }
 
     public function getRequiredLibraries() {
