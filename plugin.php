@@ -56,6 +56,8 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                 $user->save();
             }
             DatawrapperSession::login($user, true, true);
+            unset($_SESSION['signin/twitter/status']);
+            unset($_SESSION['signin/twitter/request_vars']);
         }
     }
 
