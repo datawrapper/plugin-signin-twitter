@@ -49,7 +49,7 @@ class DatawrapperPlugin_SigninTwitter extends DatawrapperPlugin {
                 $user->setCreatedAt(time());
                 $user->setOAuthSignIn('twitter::' . $twitterid);
                 // we use the email field to store the twitterid
-                $user->setEmail('');
+                $user->setEmail(null);
                 $user->setRole(UserPeer::ROLE_EDITOR); // activate user rigth away
                 $user->setName($screenname);
                 $user->setSmProfile('https://twitter.com/'.$screenname);
